@@ -4,12 +4,16 @@ from datetime import date
 from pydantic import BaseModel
 from app.bookings.router import router as router_bookings
 from app.users.router import router as router_users
+from app.hotels.router import router as router_hotels
+from app.hotels.rooms.router import router as router_hotels_rooms
 
 
 app = FastAPI()
 
 app.include_router(router_users)
 app.include_router(router_bookings)
+app.include_router(router_hotels)
+app.include_router(router_hotels_rooms)
 
 class HotelsSearchArgs:
     def __init__(
@@ -46,14 +50,3 @@ def get_hotels(
         }
     ]
     return hotels
-
- 
-class SBooking(BaseModel):
-    room_id: int
-    date_from: date 
-    date_to: date
-
-
-@app.post("/bookings")
-def add_bookings(booking: SBooking):
-    pass
