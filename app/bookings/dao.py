@@ -49,7 +49,7 @@ class BookingDAO(BaseDAO):
         """
         booked_rooms = select(Bookings).where(
             and_(
-                Bookings.room_id == 1,
+                Bookings.room_id == room_id,
                 Bookings.date_to >= date_from,
                 Bookings.date_from <= date_to
             )
@@ -76,7 +76,7 @@ class BookingDAO(BaseDAO):
                     date_from=date_from,
                     date_to=date_to,
                     price=price,
-                ).returning(Bookings)
+                ).returning(Bookings.id, Bookings.room_id, Bookings.user_id, Bookings.date_from, Bookings.date_to, Bookings.price, Bookings.total_cost, Bookings.total_days)
                 new_booking = await sessesion.execute(add_booking) 
                 await sessesion.commit()
                 return new_booking.mappings().one()

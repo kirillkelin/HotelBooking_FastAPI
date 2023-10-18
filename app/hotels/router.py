@@ -5,6 +5,7 @@ from app.exceptions import DateFromCannotBeAfterDateTo
 
 from app.hotels.dao import HotelDAO
 from app.hotels.schemas import SHotelInfo, SHotels
+from fastapi_cache.decorator import cache
 
 
 router = APIRouter(
@@ -14,6 +15,7 @@ router = APIRouter(
 
 
 @router.get("/{location}")
+@cache(expire=20)
 async def get_hotel(location: str, date_from: date, date_to: date) -> list[SHotelInfo]:
     if date_from > date_to:
         raise DateFromCannotBeAfterDateTo
