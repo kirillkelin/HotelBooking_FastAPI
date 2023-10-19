@@ -18,7 +18,10 @@ def verify_password(plain_password, hashed_password) -> bool:
 def create_access_token(data: dict) -> str:
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=30)
-    to_encode.update({"exp": expire})
+    role = "user"
+    if data.get("email") == settings.ADMIN_MAIL:
+        role = "admin"
+    to_encode.update({"exp": expire, "role": role})
     encoded_jwt = jwt.encode(
         to_encode, settings.SECRET_KEY, settings.SECRET_ALGORITHM 
     )

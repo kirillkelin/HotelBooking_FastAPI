@@ -10,13 +10,15 @@ class Settings(BaseSettings):
 
     SECRET_KEY: str
     SECRET_ALGORITHM: str
-    
+
     REDIS_HOST: str
 
     SMTP_HOST: str
     SMTP_PORT: int
     SMTP_USER: str
     SMTP_PASS: str
+
+    ADMIN_MAIL: str
 
     @property
     def database_url(self):
