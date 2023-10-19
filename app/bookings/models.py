@@ -20,4 +20,4 @@ class Bookings(Base):
     room: Mapped["Rooms"] = relationship(back_populates="booking")
 
     def __str__(self) -> str:
-        return f"Booking {self.id}"
+        return f"Бронирования #{self.id}"
