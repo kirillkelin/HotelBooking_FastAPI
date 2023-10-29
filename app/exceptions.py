@@ -40,3 +40,8 @@ class RoomCannotBeBooked(BookingException):
 class DateFromCannotBeAfterDateTo(BookingException):
     status_code=status.HTTP_400_BAD_REQUEST
     detail="Дата выезда должна быть позже даты заезда"
+
+
+class CannotBookForLongPeriod(BookingException):
+    status_code=status.HTTP_400_BAD_REQUEST
+    detail="Нельзя сделать бронирование больше, чем на 30 дней"

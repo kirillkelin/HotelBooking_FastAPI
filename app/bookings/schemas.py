@@ -28,8 +28,11 @@ class SBookingwithoutid(BaseModel):
     class Config:
         from_attributes = True
 
-class SBookingInfo(SBookingwithoutid):
+class SBookingInfo(SBooking):
     image_id: int
     name: str
     description: Optional[str]
     services: Optional[List[str]]
+
+
+     

@@ -1,7 +1,7 @@
 from datetime import date
 from typing import Optional
 from fastapi import APIRouter
-from app.exceptions import DateFromCannotBeAfterDateTo
+from app.exceptions import CannotBookForLongPeriod, DateFromCannotBeAfterDateTo
 
 from app.hotels.dao import HotelDAO
 from app.hotels.schemas import SHotelInfo, SHotels
@@ -19,6 +19,8 @@ router = APIRouter(
 async def get_hotel(location: str, date_from: date, date_to: date) -> list[SHotelInfo]:
     if date_from > date_to:
         raise DateFromCannotBeAfterDateTo
+    elif (date_to - date_from).days > 31:
+        raise CannotBookForLongPeriod
     hotels = await HotelDAO.find_all(location, date_from, date_to)
     return hotels
 
