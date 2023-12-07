@@ -12,14 +12,15 @@ router = APIRouter(
     tags=["Auth & Пользователи"],
 )
 
+
 @router.post("/register")
 async def register_user(user_data: SUserAuth):
-    existing_user = await UsersDAO.find_one_or_none(email = user_data.email)
+    existing_user = await UsersDAO.find_one_or_none(email=user_data.email)
     if existing_user:
         raise UserAlreadyExistsException
     hashed_password = get_password_hash(user_data.password)
     await UsersDAO.add(email=user_data.email, hashed_password=hashed_password)
-    
+
 
 @router.post("/login")
 async def login_user(response: Response, user_data: SUserAuth):
@@ -39,4 +40,3 @@ async def logout_user(response: Response):
 @router.get("/me")
 async def read_users_me(current_user: Users = Depends(get_current_user)):
     return current_user
-

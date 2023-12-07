@@ -24,6 +24,7 @@ async def get_hotel(location: str, date_from: date, date_to: date) -> list[SHote
     hotels = await HotelDAO.find_all(location, date_from, date_to)
     return hotels
 
+
 @router.get("/id/{hotel_id}", include_in_schema=True)
 async def get_hotel_by_id(hotel_id: int) -> Optional[SHotels]:
     return await HotelDAO.find_one_or_none(id=hotel_id)

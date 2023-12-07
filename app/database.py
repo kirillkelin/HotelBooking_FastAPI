@@ -12,9 +12,14 @@ else:
     DATABASE_URL = settings.get_database_url
     DATABASE_PARAMS = {}
 
-engine = create_async_engine(DATABASE_URL, **DATABASE_PARAMS) #создаем асинхронный движок для передачи URL
+engine = create_async_engine(
+    DATABASE_URL, **DATABASE_PARAMS
+)  # создаем асинхронный движок для передачи URL
 
-async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False) #создение сессии
+async_session_maker = sessionmaker(
+    engine, class_=AsyncSession, expire_on_commit=False
+)  # создение сессии
+
 
 class Base(DeclarativeBase):
     pass

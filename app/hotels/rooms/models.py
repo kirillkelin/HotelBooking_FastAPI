@@ -13,11 +13,11 @@ class Rooms(Base):
     description: Mapped[Optional[str]]
     price: Mapped[int]
     services: Mapped[Optional[list[str]]] = mapped_column(JSON)
-    quantity: Mapped[int] 
+    quantity: Mapped[int]
     image_id: Mapped[int]
 
     booking: Mapped[List["Bookings"]] = relationship(back_populates="room")
     hotel: Mapped["Hotels"] = relationship(back_populates="rooms")
-    
+
     def __str__(self) -> str:
         return f"Номер {self.name}"

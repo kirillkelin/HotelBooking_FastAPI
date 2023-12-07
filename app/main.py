@@ -47,7 +47,9 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup():
-    redis = aioredis.from_url(f"redis://{settings.REDIS_HOST}", encoding="utf8", decode_responses=True)
+    redis = aioredis.from_url(
+        f"redis://{settings.REDIS_HOST}", encoding="utf8", decode_responses=True
+    )
     FastAPICache.init(RedisBackend(redis), prefix="cache")
 
 
@@ -65,7 +67,5 @@ async def add_process_time_header(request: Request, call_next):
     start_time = time.time()
     response = await call_next(request)
     process_time = time.time() - start_time
-    logger.info("Request handling time", extra={
-        "process_time": round(process_time, 4)
-    })
+    logger.info("Request handling time", extra={"process_time": round(process_time, 4)})
     return response

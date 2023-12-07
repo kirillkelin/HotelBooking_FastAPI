@@ -16,6 +16,7 @@ class SBooking(BaseModel):
     class Config:
         from_attributes = True
 
+
 class SBookingwithoutid(BaseModel):
     room_id: int
     user_id: int
@@ -28,11 +29,9 @@ class SBookingwithoutid(BaseModel):
     class Config:
         from_attributes = True
 
+
 class SBookingInfo(SBooking):
     image_id: int
     name: str
     description: Optional[str]
     services: Optional[List[str]]
-
-
-     

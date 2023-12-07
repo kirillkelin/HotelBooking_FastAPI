@@ -4,44 +4,50 @@ from fastapi import HTTPException, status
 class BookingException(HTTPException):
     status_code = 500
     detail = ""
-    
+
     def __init__(self):
         super().__init__(status_code=self.status_code, detail=self.detail)
 
+
 class UserAlreadyExistsException(BookingException):
-    status_code=status.HTTP_409_CONFLICT
-    detail="Пользователь уже существует"
-        
+    status_code = status.HTTP_409_CONFLICT
+    detail = "Пользователь уже существует"
+
+
 class IncorrectEmailOrPasswordException(BookingException):
-    status_code=status.HTTP_401_UNAUTHORIZED
-    detail="Неверная почта или пароль"
-        
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Неверная почта или пароль"
+
+
 class TokenExpiredException(BookingException):
-    status_code=status.HTTP_401_UNAUTHORIZED
-    detail="Срок действия токена истек"
-        
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Срок действия токена истек"
+
+
 class TokenAbsentException(BookingException):
-    status_code=status.HTTP_401_UNAUTHORIZED
-    detail="Токен отсутствует"
-        
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Токен отсутствует"
+
+
 class IncorrectTokenFormatException(BookingException):
-    status_code=status.HTTP_401_UNAUTHORIZED
-    detail="Неверный формат токена"
-        
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Неверный формат токена"
+
+
 class UserIsNotPresentException(BookingException):
-    status_code=status.HTTP_401_UNAUTHORIZED
+    status_code = status.HTTP_401_UNAUTHORIZED
 
 
 class RoomCannotBeBooked(BookingException):
-    status_code=status.HTTP_409_CONFLICT
-    detail="Не осталось свободных номеров"
+    status_code = status.HTTP_409_CONFLICT
+    detail = "Не осталось свободных номеров"
 
 
 class DateFromCannotBeAfterDateTo(BookingException):
-    status_code=status.HTTP_400_BAD_REQUEST
-    detail="Дата выезда должна быть позже даты заезда"
+    status_code = status.HTTP_400_BAD_REQUEST
+    detail = "Дата выезда должна быть позже даты заезда"
 
 
 class CannotBookForLongPeriod(BookingException):
-    status_code=status.HTTP_400_BAD_REQUEST
-    detail="Нельзя сделать бронирование больше, чем на 30 дней"
+    status_code = status.HTTP_400_BAD_REQUEST
+    detail = "Нельзя сделать бронирование больше, чем на 30 дней"

@@ -15,6 +15,7 @@ from httpx import AsyncClient
 
 from app.main import app as fastapi_app
 
+
 @pytest.fixture(scope="session", autouse=True)
 async def prepare_database():
     assert settings.MODE == "TEST"
@@ -26,7 +27,7 @@ async def prepare_database():
     def open_mock_json(model: str):
         with open(f"app/tests/mock_{model}.json", "r", encoding="utf-8") as file:
             return json.load(file)
-        
+
     hotels = open_mock_json("hotels")
     rooms = open_mock_json("rooms")
     users = open_mock_json("users")
