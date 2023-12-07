@@ -1,6 +1,8 @@
 from datetime import date
+
 from fastapi import APIRouter, Depends
 from pydantic import TypeAdapter
+
 from app.bookings.dao import BookingDAO
 from app.bookings.schemas import SBooking, SBookingInfo
 from app.exceptions import RoomCannotBeBooked

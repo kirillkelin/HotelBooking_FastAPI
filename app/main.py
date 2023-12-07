@@ -1,10 +1,10 @@
 import time
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
-from fastapi_cache.decorator import cache
 from redis import asyncio as aioredis
 from sqladmin import Admin
 
@@ -16,10 +16,9 @@ from app.database import engine
 from app.hotels.rooms.router import router as router_hotels_rooms
 from app.hotels.router import router as router_hotels
 from app.images.router import router as router_images
-from app.pages.router import router as router_pages
-from app.users.models import Users
-from app.users.router import router as router_users
 from app.logger import logger
+from app.pages.router import router as router_pages
+from app.users.router import router as router_users
 
 app = FastAPI()
 

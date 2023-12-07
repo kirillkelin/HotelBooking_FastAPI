@@ -1,12 +1,12 @@
 from datetime import date
 from typing import Optional
-from fastapi import APIRouter
-from app.exceptions import CannotBookForLongPeriod, DateFromCannotBeAfterDateTo
 
-from app.hotels.dao import HotelDAO
-from app.hotels.schemas import SHotelInfo, SHotels
+from fastapi import APIRouter
 from fastapi_cache.decorator import cache
 
+from app.exceptions import CannotBookForLongPeriod, DateFromCannotBeAfterDateTo
+from app.hotels.dao import HotelDAO
+from app.hotels.schemas import SHotelInfo, SHotels
 
 router = APIRouter(
     prefix="/hotels",
