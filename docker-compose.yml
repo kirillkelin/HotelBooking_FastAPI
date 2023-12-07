@@ -1,0 +1,73 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15
+    container_name: booking_db
+    env_file:
+      - .env-non-dev
+    environment:
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - bookingdb-data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - "5433:5432"
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d booking_app"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 4G
+
+  redis:
+    image: redis:7
+    container_name: booking_redis
+
+  booking:
+    image: booking_image
+    container_name: booking_app
+    build:
+      context: .
+    env_file:
+      - .env-non-dev
+    depends_on:
+      - db
+      - redis
+    command: bash docker/start.sh
+    ports:
+      - "5000:8000"
+
+  celery:
+    image: booking_celery
+    build:
+      context: .
+    container_name: booking_celery
+    command: bash docker/celery.sh
+    env_file:
+      - .env-non-dev
+    depends_on:
+      - redis
+
+  flower:
+    image: booking_flower
+    build:
+      context: .
+    container_name: booking_flower
+    command: bash docker/flower.sh
+    env_file:
+      - .env-non-dev
+    depends_on:
+      - redis
+    ports:
+      - "5555:5555"
+
+volumes:
+  bookingdb-data:
